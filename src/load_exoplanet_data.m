@@ -6,7 +6,7 @@ function T = load_exoplanet_data()
     T = rmmissing(T); % no NaNs
     [~, idx] = unique(T.pl_name); % planet name is 'primary key' -> removes data on the same planet from different observation stations
     T = T(idx, :);
-    T = T(T.pl_orbper < 1e6, :); % removes outliers 
+    T = T(T.pl_orbper < 1e4, :); % removes outliers 
     
     %OBJECTIVE AND EXPLANATION:
     %to do: 
