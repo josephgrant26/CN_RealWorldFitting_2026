@@ -1,11 +1,11 @@
 % Data:
 T = load_exoplanet_data();
 
-x = T.pl_orbsmax;
-y = T.pl_orbper;
+x = T.pl_orbsmax.^3;
+y = T.pl_orbper.^2;
 
-x_pwr = T.pl_orbsmax;
-y_pwr = T.pl_orbper;
+x_pwr = T.pl_orbsmax.^3;
+y_pwr = T.pl_orbper.^2;
 
 %--------------------------------------%
 
@@ -20,7 +20,7 @@ c2 = pol2(3);
 %--------------------------------------%
 
 % Fit polinomiale grado 6
-pol3 = polyfit(x, y, 6);
+pol3 = polyfit(x, y, 3);
 
 % Coefficienti
 a3 = pol3(1);
