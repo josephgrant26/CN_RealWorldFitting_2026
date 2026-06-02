@@ -3,13 +3,11 @@ x = T.month_idx;
 y = T.sunspots;
 omega = 2*pi/132;
 %--------------------------------------%
-
 % Fit polinomiale grado 28
-[poly_28, s_28, mu_28] = polyfit(x, y, 28);
+[poly_28, s_28, mu_28]=polyfit(x, y, 28);
 
 % Fit polinomiale grado 3
-poly_3 = polyfit(x, y, 3);
-
+poly_3=polyfit(x, y, 3);
 
 %--------------------------------------%
 % Fit sinusoidale lineare nei parametri
@@ -65,10 +63,10 @@ r2      = @(y_fit) 1 - sum((y - y_fit).^2) / ss_tot;
 adj_r2  = @(y_fit, n_params) 1 - (1 - r2(y_fit)) * (n_pts-1) / (n_pts-n_params-1);
 
 % Numero di parametri per ogni modello
-p_pol28 = 29;  % grado 25 -> 26 coefficienti
-p_pol3 = 4;  % grado 3 -> 4 coefficienti 
-p_sine  = 3;   % a, b, C
-p_four  = 5;   % a1, b1, a2, b2, C
+p_pol28 = 29;
+p_pol3 = 4;
+p_sine  = 3; 
+p_four  = 5;   
 
 fprintf('\n%-20s %8s %8s\n', 'Modello', 'R²', 'Adj-R²');
 fprintf('%-20s %8.4f %8.4f\n', 'Pol. grado 28', r2(y_pol28_fit), adj_r2(y_pol28_fit, p_pol28));
@@ -88,11 +86,11 @@ idx_right = (n_pts-n_edge+1):n_pts;
 idx_center = (n_edge+1):(n_pts-n_edge);
 
 
-center_idx = idx_center;
-border_idx = [idx_left(:); idx_right(:)];
+center_idx=idx_center;
+border_idx=[idx_left(:); idx_right(:)];
 
 % Refit sul centro del dataset
-[poly28_cv, ~, mu28_cv] = polyfit(x(center_idx), y(center_idx), 28);
+[poly28_cv, ~, mu28_cv]= polyfit(x(center_idx), y(center_idx), 28);
 poly_3_cv = polyfit(x(center_idx), y(center_idx), 3);
 
 % valuta RMSE agli estremi
@@ -105,11 +103,7 @@ fprintf('%-20s %10.4f\n', 'Pol. grado 28', sqrt(mean((y(border_idx) - y_pol28_te
 fprintf('%-20s %10.4f\n', 'Pol. grado 3', sqrt(mean((y(border_idx) - y_poly3_test).^2)));
 fprintf('%-20s %10.4f\n', 'Sine',          sqrt(mean((y(border_idx) - y_sine_test).^2)));
 
-
-
 % PLOT %
-
-
 x_range = linspace(min(x), max(x), 2000)';
 y_pol28  = polyval(poly_28, x_range, [], mu_28);
 y_pol3  = polyval(poly_3, x_range);
